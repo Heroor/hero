@@ -1,4 +1,4 @@
-# hero
+# Hero
 
 hero-js A simple web server.
 
@@ -9,7 +9,7 @@ hero-js A simple web server.
 
 ## Router
 
-Create router files in router folder, and use decorators:
+Create router files in `src/router` folder, and use decorators:
 
 ```ts
 import { get } from '**/Hero'
