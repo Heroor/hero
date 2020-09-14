@@ -12,7 +12,7 @@ hero-js A simple web server.
 Create router files in `src/router` folder, and use decorators:
 
 ```ts
-import { get } from '**/Hero'
+import { get } from '**/hero'
 import { Context } from 'koa'
 
 export default class User {
