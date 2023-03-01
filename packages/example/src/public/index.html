@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero</title>
+</head>
+
+<body>
+  <h1>Static page</h1>
+
+  <div>
+    <textarea name="result" cols="60" rows="20" placeholder="result..."></textarea>
+  </div>
+
+  <button type="button" onclick="getUser()">getUser</button>
+  <button type="button" onclick="addUser()">addUser</button>
+  <button type="button" onclick="deleteUser()">deleteUser</button>
+  <script>
+    async function getUser () {
+      let res = await fetch('/getUser')
+      res = await res.json()
+      document.querySelector('textarea').value = JSON.stringify(res.data, null, '  ')
+    }
+
+    async function addUser () {
+      await fetch('/addUser', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'hero', age: 12 })
+      })
+      getUser()
+    }
+
+    async function deleteUser () {
+      await fetch('/deleteUser', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'hero', age: 12 })
+      })
+      getUser()
+    }
+  </script>
+</body>
+
+</html>

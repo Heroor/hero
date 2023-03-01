@@ -1,0 +1,11 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "author": "Bener",
+  "scripts": {
+    "start": "ts-node-dev src -w --clear"
+  },
+  "dependencies": {
+    "@heroor/hero": "workspace:*"
+  }
+}
