@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.4",
   "scripts": {
     "start": "pnpm run --filter '*' start",
     "dev": "pnpm run --filter '*' dev"

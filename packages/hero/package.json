@@ -1,6 +1,6 @@
 {
   "name": "@heroor/hero",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Bener",
   "description": "A light web server framework.",
   "main": "dist/index.js",
