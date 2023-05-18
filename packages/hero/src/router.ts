@@ -5,11 +5,11 @@ import { glob } from 'glob'
 const router = new KoaRouter()
 
 type Methods = 'get' | 'post' | 'delete' | 'put' | 'head' | 'options' | 'patch'
-type RouterDecorator = (path: string) => any
+type RouterDecorator = (path: string) => MethodDecorator
 type RouterMethod = (method: Methods) => RouterDecorator
 
 export const method: RouterMethod =
-  method => path => (target: Object, property: string | symbol) => {
+  method => path => (target: object, property: string | symbol) => {
     router[method](path, Reflect.get(target, property))
     return {
       value: Reflect.get(target, property),
