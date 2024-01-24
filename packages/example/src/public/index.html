@@ -3,8 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hero</title>
 </head>
 
@@ -12,35 +10,72 @@
   <h1>Static page</h1>
 
   <div>
-    <textarea name="result" cols="60" rows="20" placeholder="result..."></textarea>
+    <button type="button" onclick="getUser()">Get all user</button>
+    <button type="button" onclick="addUser()">Add user</button>
+  </div>
+  <br />
+  <div style="display: flex; gap: 10px; align-items: flex-start;">
+    <table border cellpadding="5">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <textarea name="result" cols="60" rows="14" placeholder="Request..."></textarea>
   </div>
 
-  <button type="button" onclick="getUser()">getUser</button>
-  <button type="button" onclick="addUser()">addUser</button>
-  <button type="button" onclick="deleteUser()">deleteUser</button>
   <script>
+    window.onload = getUser
     async function getUser () {
       let res = await fetch('/getUser')
       res = await res.json()
-      document.querySelector('textarea').value = JSON.stringify(res.data, null, '  ')
+      render(res.data)
     }
 
     async function addUser () {
       await fetch('/addUser', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: 'hero', age: 12 })
+        body: JSON.stringify({ name: 'Hero', age: Math.random() * 20 >>> 0 })
       })
       getUser()
     }
 
-    async function deleteUser () {
+    async function deleteUser (item) {
       await fetch('/deleteUser', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: 'hero', age: 12 })
+        body: JSON.stringify(item)
       })
       getUser()
+    }
+
+    const tbody = document.querySelector('tbody')
+    function render (data = []) {
+      document.querySelector('textarea').value = JSON.stringify(data, null, '  ')
+      const trs = data.map(item => {
+        const tr = document.createElement('tr')
+        const idTd = document.createElement('td')
+        idTd.textContent = item.id
+        const nameTd = document.createElement('td')
+        nameTd.textContent = item.name
+        const ageTd = document.createElement('td')
+        ageTd.textContent = item.age
+        const delTd = document.createElement('td')
+        const delBtn = document.createElement('button')
+        delBtn.textContent = 'Delete'
+        delBtn.onclick = deleteUser.bind(this, item)
+        delTd.append(delBtn)
+        tr.append(idTd, nameTd, ageTd, delTd)
+        return tr
+      })
+      tbody.innerHTML = ''
+      tbody.append(...trs)
     }
   </script>
 </body>
